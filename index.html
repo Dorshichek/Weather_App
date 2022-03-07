@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Weather_App</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+<main class="app">
+  <div class="app__wrapper">
+    <form action="" class="weather-app">
+      <input type="text" placeholder="Enter city" class="weather-app__input">
+      <span class="weather-app__search"></span>
+    </form>
+    <div class="main-wrapper">
+      <div class="main-block">
+        <div class="main-block__window">
+          <div class="main-block__weather weather">
+            <div class="weather__now" id="tab-1">
+              <span class="weather__grad">14&deg</span>
+              <img src="/img/Cloud.svg" class="weather__img" width="78" height="59" alt="Cloud">
+              <div class="weather__bottom">
+                <span class="weather__city">Aktobe</span>
+                <img src="/img/Heart.svg" alt="Heart" class="weather__add-favorites">
+              </div>
+            </div>
+            <div class="weather__details" id="tab-2">
+              <span class="weather__city">Aktobe</span>
+              <ul class="weather__list" >
+                <li class="weather__item">Temperature: 14&deg</li>
+                <li class="weather__item">Feels like: 10&deg</li>
+                <li class="weather__item">Weather: Clouds</li>
+                <li class="weather__item">Sunrise: 03:21</li>
+                <li class="weather__item">Sunset: 18:54</li>
+              </ul>
+            </div>
+            <div class="weather__forecast" id="tab-3">
+              <span class="weather__city">Aktobe</span>
+              <ul class="weather__card-list">
+                <li class="weather__card-item">
+                  <div class="weather__first-row">
+                    <span class="weather__date">17 May</span>
+                    <span class="weather__time">12:00</span>
+                  </div>
+                  <div class="weather__second-row">
+                    <div class="weather__left">
+                      <span class="weather__temp">Temperature: 13&deg</span>
+                      <span class="weather__temp-feel">Feels like: 10&deg</span>
+                    </div>
+                    <div class="weather__right">
+                      <span class="weather__weather-now">Rain</span>
+                      <img src="/img/Rain.svg" width="31" height="31" alt="Rain" class="weather__icon">
+                    </div>
+                  </div>
+                </li>
+                <li class="weather__card-item">
+                  <div class="weather__first-row">
+                    <span class="weather__date">17 May</span>
+                    <span class="weather__time">12:00</span>
+                  </div>
+                  <div class="weather__second-row">
+                    <div class="weather__left">
+                      <span class="weather__temp">Temperature: 13&deg</span>
+                      <span class="weather__temp-feel">Feels like: 10&deg</span>
+                    </div>
+                    <div class="weather__right">
+                      <span class="weather__weather-now">Rain</span>
+                      <img src="/img/Rain.svg" width="31" height="31" alt="Rain" class="weather__icon">
+                    </div>
+                  </div>
+                </li>
+                <li class="weather__card-item">
+                  <div class="weather__first-row">
+                    <span class="weather__date">17 May</span>
+                    <span class="weather__time">12:00</span>
+                  </div>
+                  <div class="weather__second-row">
+                    <div class="weather__left">
+                      <span class="weather__temp">Temperature: 13&deg</span>
+                      <span class="weather__temp-feel">Feels like: 10&deg</span>
+                    </div>
+                    <div class="weather__right">
+                      <span class="weather__weather-now">Rain</span>
+                      <img src="/img/Rain.svg" width="31" height="31" alt="Rain" class="weather__icon">
+                    </div>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="main-block__tabs">
+          <div class="main-block__list">
+            <a class="main-block__item  active-tab" href="#tab-1">Now</a>
+            <a class="main-block__item" href="#tab-2">Details</a>
+            <a class="main-block__item" href="#tab-3">Forecast</a>
+          </div>
+        </div>
+      </div>
+      <div class="aside">
+        <div class="aside__top">
+          <span class="aside__title">Added Locations:</span>
+        </div>
+        <div class="aside__cities">
+          <ul class="aside__list">
+            <li class="aside__item">Amur</li>
+            <li class="aside__item">Samara</li>
+            <li class="aside__item">Bali</li>
+            <li class="aside__item">Dane</li>
+            <li class="aside__item">Kilo</li>
+            <li class="aside__item">Nur-Sultan</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<script type="module" src="./js/main.js"></script>
+</body>
+</html>
