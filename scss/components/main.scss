@@ -76,6 +76,7 @@ body {
     min-height: 45px;
     text-align: center;
     border-bottom: 1px solid $black;
+    position: relative;
   }
 
   &__item {
@@ -111,13 +112,29 @@ body {
   }
 
   &__cities {
-    padding-top: 35px;
-    padding-left: 17px;
+    padding: 35px 17px 20px;
   }
 
   &__item {
     list-style-type: none;
+    margin-bottom: 3px;
+    position: relative;
+  }
+
+  &__button-close {
+    position: absolute;
+    right: 0;
     cursor: pointer;
+    &:hover {
+      color: rgba(4,4,4,0.72);
+    }
+  }
+
+  &__city {
+    cursor: pointer;
+    &:hover {
+      color: rgba(4,4,4,0.72);
+    }
   }
 }
 
@@ -127,16 +144,17 @@ body {
     display: none;
     flex-direction: column;
     padding: 20px 26px 17px 24px;
+
+    p {
+      font-size: 70px;
+      line-height: 82px;
+    }
   }
 
   &__now:target {
     display: block;
   }
 
-  &__grad {
-    font-size: 70px;
-    line-height: 82px;
-  }
 
   &__img {
     display: block;
@@ -153,20 +171,20 @@ body {
 
     animation-name: jump;
     animation-duration: 2.5s;
-    animation-timing-function: cubic-bezier(0.68,-0.55,0.265,1.55);
+    animation-timing-function: cubic-bezier(0.68, -0.55, 0.265, 1.55);
   }
 
-@keyframes jump {
-  0%{
-    top: 0%;
+  @keyframes jump {
+    0% {
+      top: 0%;
+    }
+    50% {
+      border-radius: 0%;
+    }
+    100% {
+      top: 10%;
+    }
   }
-  50%{
-    border-radius: 0%;
-  }
-  100%{
-    top: 10%;
-  }
-}
 
 
   &__details {

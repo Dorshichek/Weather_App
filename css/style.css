@@ -486,6 +486,7 @@ body {
   min-height: 45px;
   text-align: center;
   border-bottom: 1px solid #000000;
+  position: relative;
 }
 .main-block__item {
   width: 33.33%;
@@ -517,12 +518,26 @@ body {
   display: block;
 }
 .aside__cities {
-  padding-top: 35px;
-  padding-left: 17px;
+  padding: 35px 17px 20px;
 }
 .aside__item {
   list-style-type: none;
+  margin-bottom: 3px;
+  position: relative;
+}
+.aside__button-close {
+  position: absolute;
+  right: 0;
   cursor: pointer;
+}
+.aside__button-close:hover {
+  color: rgba(4, 4, 4, 0.72);
+}
+.aside__city {
+  cursor: pointer;
+}
+.aside__city:hover {
+  color: rgba(4, 4, 4, 0.72);
 }
 
 .weather__now {
@@ -530,12 +545,12 @@ body {
   flex-direction: column;
   padding: 20px 26px 17px 24px;
 }
-.weather__now:target {
-  display: block;
-}
-.weather__grad {
+.weather__now p {
   font-size: 70px;
   line-height: 82px;
+}
+.weather__now:target {
+  display: block;
 }
 .weather__img {
   display: block;
