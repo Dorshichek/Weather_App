@@ -8,6 +8,7 @@ import {
   ASIDE_LIST,
 } from "./view.js";
 import {showErrors} from "./showerror.js";
+
 // import {setItemLocalStorage, showCity} from "./storage.js";
 
 
@@ -47,47 +48,47 @@ function changeTab(event) {
   event.target.classList.add('active-tab')
 }
 
-function getCityWeather() {
+async function getCityWeather() {
   event.preventDefault()
   const SERVER_URL = 'https://api.openweathermap.org/data/2.5/weather';
   const cityName = CONTROLS.INPUT.value;
-  const API_KEY = 'f660a2fb1e4bad108d6160b7f58c555f';
+  const API_KEY = '97f36208f41daeec8c857deb48d7e06c';
   const url = `${SERVER_URL}?q=${cityName}&appid=${API_KEY}`;
 
   try {
-    const request = fetch(url)
-    const promise = request.then((response) => response.json())
+    const request = await fetch(url)
+    const response = await request.json()
+    console.log(response)
 
-    promise.then((result) => {
-      const temperature = result.main.temp - 273.15
-      let sunrise = new Date(result.sys.sunrise * 1000)
-      let sunset = new Date(result.sys.sunset * 1000)
-      let hours_Now = new Date().getHours()
-      let minutes_Now = new Date().getMinutes()
-      let date = new Date().toDateString().split(' ')
-      let dateMonth = date[1]
-      let dateDay = date[2]
+    const temperature = response.main.temp - 273.15
+    let sunrise = new Date(response.sys.sunrise * 1000)
+    let sunset = new Date(response.sys.sunset * 1000)
+    let hours_Now = new Date().getHours()
+    let minutes_Now = new Date().getMinutes()
+    let date = new Date().toDateString().split(' ')
+    let dateMonth = date[1]
+    let dateDay = date[2]
 
-      REUSABLE_ELEMENTS.CITY[0].textContent = result.name
-      REUSABLE_ELEMENTS.TEMPERATURE[0].textContent = (temperature).toFixed(0) + '°'
+    REUSABLE_ELEMENTS.CITY[0].textContent = response.name
+    REUSABLE_ELEMENTS.TEMPERATURE[0].textContent = (temperature).toFixed(0) + '°'
 
-      REUSABLE_ELEMENTS.CITY[1].textContent = result.name
-      REUSABLE_ELEMENTS.TEMPERATURE[1].textContent = (temperature).toFixed(0) + '°'
-      REUSABLE_ELEMENTS.FEELS_LIKE[0].textContent = (temperature).toFixed(0) + '°'
-      REUSABLE_ELEMENTS.WEATHER_NOW[0].textContent = result.weather[0].main
-      TAB_DETAILS_ELEMENTS.SUNRISE.textContent = sunrise.getHours() + ':' + sunrise.getMinutes()
-      TAB_DETAILS_ELEMENTS.SUNSET.textContent = sunset.getHours() + ':' + sunset.getMinutes()
+    REUSABLE_ELEMENTS.CITY[1].textContent = result.name
+    REUSABLE_ELEMENTS.TEMPERATURE[1].textContent = (temperature).toFixed(0) + '°'
+    REUSABLE_ELEMENTS.FEELS_LIKE[0].textContent = (temperature).toFixed(0) + '°'
+    REUSABLE_ELEMENTS.WEATHER_NOW[0].textContent = response.weather[0].main
+    TAB_DETAILS_ELEMENTS.SUNRISE.textContent = sunrise.getHours() + ':' + sunrise.getMinutes()
+    TAB_DETAILS_ELEMENTS.SUNSET.textContent = sunset.getHours() + ':' + sunset.getMinutes()
 
-      TAB_FORECAST_ELEMENTS.DATE.textContent = dateDay + ' ' + dateMonth
-      TAB_FORECAST_ELEMENTS.TIME.textContent = hours_Now + ':' + minutes_Now
-      REUSABLE_ELEMENTS.TEMPERATURE[2].textContent = (temperature).toFixed(0) + '°'
-      REUSABLE_ELEMENTS.CITY[2].textContent = result.name
-      REUSABLE_ELEMENTS.FEELS_LIKE[1].textContent = (temperature).toFixed(0) + '°'
-      REUSABLE_ELEMENTS.WEATHER_NOW[1].textContent = result.weather[0].main
+    TAB_FORECAST_ELEMENTS.DATE.textContent = dateDay + ' ' + dateMonth
+    TAB_FORECAST_ELEMENTS.TIME.textContent = hours_Now + ':' + minutes_Now
+    REUSABLE_ELEMENTS.TEMPERATURE[2].textContent = (temperature).toFixed(0) + '°'
+    REUSABLE_ELEMENTS.CITY[2].textContent = response.name
+    REUSABLE_ELEMENTS.FEELS_LIKE[1].textContent = (temperature).toFixed(0) + '°'
+    REUSABLE_ELEMENTS.WEATHER_NOW[1].textContent = response.weather[0].main
+
+  } catch (showErrors) {
+    CONTROLS.INPUT.value = ''
   }
-
-  }).catch(showErrors)
-  CONTROLS.INPUT.value = ''
 }
 
 let favourites = []
@@ -121,7 +122,6 @@ function addToFavourites(city) {
     asideItem.append(asideButtonClose)
   }
 }
-
 
 
 function deleteFavourite() {
