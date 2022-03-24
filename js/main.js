@@ -8,8 +8,7 @@ import {
   ASIDE_LIST,
 } from "./view.js";
 import {showErrors} from "./showerror.js";
-
-// import {setItemLocalStorage, showCity} from "./storage.js";
+import {STORAGE} from "./STORAGE.js";
 
 
 function init() {
@@ -27,12 +26,7 @@ function init() {
 
   CONTROLS.BUTTON_SEARCH.addEventListener('click', getCityWeather)
 
-
-  let arr = localStorage.getItem('favourites')
-  if (arr !== null) {
-    JSON.parse(arr).forEach(item => addToFavourites(item))
-    // arr.split(',').forEach(item => addToFavourites(item))
-  }
+  STORAGE.showItem()
 }
 
 function changeTab(event) {
@@ -48,6 +42,7 @@ function changeTab(event) {
   event.target.classList.add('active-tab')
 }
 
+
 async function getCityWeather() {
   event.preventDefault()
   const SERVER_URL = 'https://api.openweathermap.org/data/2.5/weather';
@@ -58,7 +53,6 @@ async function getCityWeather() {
   try {
     const request = await fetch(url)
     const response = await request.json()
-    console.log(response)
 
     const temperature = response.main.temp - 273.15
     let sunrise = new Date(response.sys.sunrise * 1000)
@@ -72,7 +66,7 @@ async function getCityWeather() {
     REUSABLE_ELEMENTS.CITY[0].textContent = response.name
     REUSABLE_ELEMENTS.TEMPERATURE[0].textContent = (temperature).toFixed(0) + '°'
 
-    REUSABLE_ELEMENTS.CITY[1].textContent = result.name
+    REUSABLE_ELEMENTS.CITY[1].textContent = response.name
     REUSABLE_ELEMENTS.TEMPERATURE[1].textContent = (temperature).toFixed(0) + '°'
     REUSABLE_ELEMENTS.FEELS_LIKE[0].textContent = (temperature).toFixed(0) + '°'
     REUSABLE_ELEMENTS.WEATHER_NOW[0].textContent = response.weather[0].main
@@ -86,14 +80,17 @@ async function getCityWeather() {
     REUSABLE_ELEMENTS.FEELS_LIKE[1].textContent = (temperature).toFixed(0) + '°'
     REUSABLE_ELEMENTS.WEATHER_NOW[1].textContent = response.weather[0].main
 
-  } catch (showErrors) {
-    CONTROLS.INPUT.value = ''
+  } catch {
+    showErrors()
   }
+  CONTROLS.INPUT.value = ''
 }
 
-let favourites = []
+let favourites = new Set()
 
-function addToFavourites(city) {
+// let favourites = []
+
+export function addToFavourites(city) {
   let cityName = null
   if (typeof city === 'object') {
     cityName = REUSABLE_ELEMENTS.CITY[0].textContent
@@ -101,7 +98,7 @@ function addToFavourites(city) {
     cityName = city
   }
 
-  let hasCity = favourites.includes(cityName)
+  // let hasCity = favourites.values(cityName)
   const asideItem = document.createElement('li')
   const asideCity = document.createElement('span')
   const asideButtonClose = document.createElement('span')
@@ -112,15 +109,22 @@ function addToFavourites(city) {
   asideButtonClose.className = 'aside__button-close'
   asideButtonClose.addEventListener('click', deleteFavourite)
 
-  if (!hasCity) {
-    favourites.push(cityName)
-    localStorage.setItem('currentCity', cityName)
-    localStorage.setItem('favourites', JSON.stringify(favourites))
-    asideCity.textContent = localStorage.getItem('currentCity')
-    ASIDE_LIST.append(asideItem)
-    asideItem.append(asideCity)
-    asideItem.append(asideButtonClose)
-  }
+
+  favourites.add(cityName)
+  STORAGE.setItem(cityName, favourites)
+  asideCity.textContent = localStorage.getItem('currentCity')
+  ASIDE_LIST.append(asideItem)
+  asideItem.append(asideCity)
+  asideItem.append(asideButtonClose)
+  console.log(favourites)
+
+  // if (!hasCity) {
+  //
+  // }
+
+  // if (!hasCity) {
+  //
+  // }
 }
 
 
